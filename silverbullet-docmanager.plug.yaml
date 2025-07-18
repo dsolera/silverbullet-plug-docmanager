@@ -2,5 +2,5 @@ name: docmanager
 functions:
   renderDocManager:
     path: silverbullet-docmanager.ts:renderDocManager
-    command:
-      name: "DocManager"
+#    command:
+#      name: "DocManager"
