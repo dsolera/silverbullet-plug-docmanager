@@ -1,4 +1,4 @@
-name: hello
+name: docmanager
 functions:
   helloWorld:
     path: hello.ts:helloWorld

@@ -1,7 +1,7 @@
 
-# SilverBullet plug template
+# SilverBullet Doc Manager Plug
 
-Insert your plug description here
+A Silverbullet Plug that can generate a list of documents saved in your SilverBullet space allowing you to see in which notes they are used and to delete them.
 
 ## Build
 To build this plug, make sure you have [Deno installed](https://docs.deno.com/runtime/). Then, build the plug with:
