@@ -1,6 +1,6 @@
 name: docmanager
 functions:
-  helloWorld:
-    path: silverbullet-docmanager.ts:helloWorld
+  renderDocManager:
+    path: silverbullet-docmanager.ts:renderDocManager
     command:
-      name: "Say hello"
+      name: "DocManager"
