@@ -16,6 +16,15 @@
       "*.plug.js"
     ]
   },
+  "compilerOptions": {
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "dom.asynciterable",
+      "deno.ns",
+      "esnext"
+    ]
+  },
   "imports": {
     "@silverbulletmd/silverbullet": "jsr:@silverbulletmd/silverbullet@^2.0.0-pre"
   }
