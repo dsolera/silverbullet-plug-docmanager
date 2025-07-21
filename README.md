@@ -6,7 +6,7 @@ A Silverbullet Plug that can generate a list of documents saved in your SilverBu
 ## Usage
 
 ```
-${ widget.new { html = system.invokeFunction("docmanager.renderDocManager", nil), display = "block" } }
+${ widget.new { html = system.invokeFunction("docmanager.render"), display = "block" } }
 ```
 
 ## Build

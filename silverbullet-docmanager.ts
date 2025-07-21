@@ -7,8 +7,8 @@ import { codeWidget } from "@silverbulletmd/silverbullet/syscalls";
 export async function render(exclusionRegex?: string): Promise<string> {
   let docs = await loadDocuments(exclusionRegex);
 
-  // Sort by size desc
-  docs.sort((a, b) => b.size - a.size);
+  //docs.sort((a, b) => b.size - a.size);
+  docs.sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));
 
   let html = `<div class="docmanager">
    <table><thead><tr><td>Name</td><td style="text-align: right;">Size</td><td>Used In</td></tr></thead>`;
@@ -16,10 +16,10 @@ export async function render(exclusionRegex?: string): Promise<string> {
   docs.forEach((d) => {
     html += `<tr>
       <td><a href="/${d.name}" class="wiki-link" target="_blank">${d.name}</a></td>
-      <td style="text-align: right;">${d.size} B</td>`
+      <td style="text-align: right;">${prettifySize(d.size)}</td>`
 
     if (d.links.length > 0) {
-      html += `<td>${d.links.map(l => `<a onclick="return false;" href="/${l.page}@${l.pos}" class="wiki-link" data-page="${l.page}@${l.pos}">${l.page}@${l.pos}</a>`).join(" ")}</td>`;
+      html += `<td>${d.links.map(l => `<a onclick="return false;" href="/${l.page}@${l.pos}" class="wiki-link" data-page="${l.page}@${l.pos}">${l.page}@${l.pos}</a>`).join(" &bull; ")}</td>`;
     }
     else {
       html += `<td><i>Unused</i> &rarr; <button class="delete-button sb-button-primary" data-name="${d.name}">Delete</button></td>`
@@ -51,10 +51,23 @@ export async function click(dataName: string, dataPage: string) {
   }
 }
 
-export async function deleteDocument(name: string) {
-  console.log("Delete: " + name);
-  //await space.deleteDocument(name);
+function prettifySize(size: number) {
+  if (size < 1024) {
+    return size + " B";
+  }
+  else if (size < 1048576) {
+    return roundToDecimals(size / 1024, 1) + " KB";
+  }
+  else {
+    return roundToDecimals(size / 1048576, 1) + " MB";
+  }
 }
+
+function roundToDecimals(num: number, decimals: number): number {
+  const factor = Math.pow(10, decimals);
+  return Math.round(num * factor) / factor;
+}
+
 
 async function loadDocuments(exclusionRegex?: string) {
   let links = await datastore.queryLua(["idx", "link"], {});
