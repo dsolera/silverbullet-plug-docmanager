@@ -10,6 +10,8 @@ The document list includes:
 * List of pages that include a link or reference to the document, clickable to open the page(s) at the position the document is referenced
 * If the document is not used in any page, it can be deleted after a confirmation.
 
+This plug also displays the number of documents and their total size.
+
 ## Usage
 
 To display the document manager in any page of your space, paste the following Lua Expression.

@@ -13,10 +13,14 @@ export async function render(exclusionRegex?: string): Promise<string> {
   let html = `<div class="docmanager">
    <table><thead><tr><td>Name</td><td style="text-align: right;">Size</td><td>Used In</td></tr></thead>`;
 
+  html += "<tbody>"
+
+  let totalSize = 0;
+
   docs.forEach((d) => {
     html += `<tr>
       <td><a href="/${d.name}" class="wiki-link" target="_blank">${d.name}</a></td>
-      <td style="text-align: right;">${prettifySize(d.size)}</td>`
+      <td style="text-align: right;">${prettifySize(d.size)}</td>`;
 
     if (d.links.length > 0) {
       html += `<td>${d.links.map(l => `<a onclick="return false;" href="/${l.page}@${l.pos}" class="wiki-link" data-page="${l.page}@${l.pos}">${l.page}@${l.pos}</a>`).join(" &bull; ")}</td>`;
@@ -26,7 +30,13 @@ export async function render(exclusionRegex?: string): Promise<string> {
     }
 
     html += '</tr>';
+
+    totalSize += d.size;
   });
+
+  html += "</tbody>"
+
+  html += `<tfoot><tr><td>${docs.length} documents</td><td style='text-align: right;'>${prettifySize(totalSize)}</td><td></td></tr></tfoot>`
 
   html += "</table></div>"
 
