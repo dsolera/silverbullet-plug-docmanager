@@ -1,6 +1,8 @@
 
 import { space } from "@silverbulletmd/silverbullet/syscalls";
 import { datastore } from "@silverbulletmd/silverbullet/syscalls";
+import { editor } from "@silverbulletmd/silverbullet/syscalls";
+import { Ref } from "@silverbulletmd/silverbullet/lib/page_ref";
 
 export async function render(exclusionRegex?: string): Promise<string> {
   let docs = await loadDocuments(exclusionRegex);
@@ -9,15 +11,21 @@ export async function render(exclusionRegex?: string): Promise<string> {
   docs.sort((a, b) => b.size - a.size);
 
   let html = `<div class="docmanager">
-   <table><thead><tr><td>Name</td><td style="text-align: right;">Size</td><td>Used In</td><td>&nbsp;</td></tr></thead>`;
+   <table><thead><tr><td>Name</td><td style="text-align: right;">Size</td><td>Used In</td></tr></thead>`;
 
   docs.forEach((d) => {
     html += `<tr>
-      <td>${d.name}</td>
-      <td style="text-align: right;">${d.size}</td>
-      <td>${d.links.map(l => l.page).join(", ")}</td>
-      <td><button class="delete-button sb-button-primary" data-name="${d.name}">Delete</button></td>
-    </tr>`;
+      <td><a href="/${d.name}" class="wiki-link" target="_blank">${d.name}</a></td>
+      <td style="text-align: right;">${d.size} B</td>`
+
+    if (d.links.length > 0) {
+      html += `<td>${d.links.map(l => `<a onclick="return false;" href="/${l.page}@${l.pos}" class="wiki-link" data-page="${l.page}@${l.pos}">${l.page}@${l.pos}</a>`).join(" ")}</td>`;
+    }
+    else {
+      html += `<td><i>Unused</i> &rarr; <button class="delete-button sb-button-primary" data-name="${d.name}">Delete</button></td>`
+    }
+
+    html += '</tr>';
   });
 
   html += "</table></div>"
@@ -25,37 +33,22 @@ export async function render(exclusionRegex?: string): Promise<string> {
   return html;
 }
 
-export async function click(event: any) {
-  console.log(event);
-  // TODO
+export async function click(dataName: string, dataPage: string) {
+  if (typeof dataName == "string" && dataName !== "") {
+
+  }
+  else if (typeof dataPage == "string" && dataPage !== "") {
+    let parts = dataPage.split("@");
+    editor.navigate({ kind: "page", page: parts[0], pos: parts[1] });
+  }
+  else {
+    console.log("No valid click arguments.")
+  }
 }
 
 export async function deleteDocument(name: string) {
   console.log("Delete: " + name);
   //await space.deleteDocument(name);
-}
-
-function getTableHead(): HTMLTableSectionElement {
-  let thead = new HTMLTableSectionElement();
-  let theadRow = new HTMLTableRowElement();
-
-  let td1 = new HTMLTableCellElement();
-  td1.innerText = "Name";
-  theadRow.appendChild(td1);
-
-  let td2 = new HTMLTableCellElement();
-  td2.innerText = "Size";
-  td2.setAttribute("style", "text-align: right;");
-  theadRow.appendChild(td2);
-
-  let td3 = new HTMLTableCellElement();
-  td3.innerText = "Used In";
-  theadRow.appendChild(td3);
-
-  let td4 = new HTMLTableCellElement();
-  theadRow.appendChild(td4);
-
-  return thead;
 }
 
 async function loadDocuments(exclusionRegex?: string) {
