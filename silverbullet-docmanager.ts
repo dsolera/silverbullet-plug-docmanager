@@ -20,6 +20,11 @@ export async function renderDocManager(exclusionRegex?: string): Promise<string>
   return html;
 }
 
+export function testFunction(input: string): string {
+  console.log("Called: " + input);
+  return input + input;
+}
+
 function getTableHead(): HTMLTableSectionElement {
   let thead = new HTMLTableSectionElement();
   let theadRow = new HTMLTableRowElement();
