@@ -43,7 +43,12 @@ SilverBullet will automatically sync and load the new version of the plug, just 
 If you would like to install this plug straight from Github, make sure you have the `.js` file committed to the repo and simply add
 
 ```
-"github:dsolera/silverbullet-plug-docmanager/docmanager.plug.js",
+config.set {
+  plugs = {
+    ... other plugs ...,
+    "github:dsolera/silverbullet-plug-docmanager/docmanager.plug.js"
+  }
+}
 ```
 
 to your list of plugs in your `CONFIG` file, run `Plugs: Update` command and off you go!
