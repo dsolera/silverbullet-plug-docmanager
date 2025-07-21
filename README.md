@@ -1,14 +1,14 @@
 
-# SilverBullet Doc Manager Plug
+# SilverBullet Document Manager Plug
 
-A Silverbullet Plug that can generate a list of documents saved in your SilverBullet space allowing you to see in which notes they are used and to delete them.
+A Plug that can generate a list of documents saved in your SilverBullet space.
 
 The document list includes:
 
 * Document name, clickable to open the document in a new tab
 * Document size
 * List of pages that include a link or reference to the document, clickable to open the page(s) at the position the document is referenced
-* If the document is not used in any page, it can be deleted after a confirmation.
+* If the document is not used in any page, a Delete button to delete the document (after confirmation).
 
 This plug also displays the number of documents and their total size.
 
