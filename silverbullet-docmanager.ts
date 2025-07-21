@@ -2,7 +2,7 @@
 import { space } from "@silverbulletmd/silverbullet/syscalls";
 import { datastore } from "@silverbulletmd/silverbullet/syscalls";
 import { editor } from "@silverbulletmd/silverbullet/syscalls";
-import { Ref } from "@silverbulletmd/silverbullet/lib/page_ref";
+import { codeWidget } from "@silverbulletmd/silverbullet/syscalls";
 
 export async function render(exclusionRegex?: string): Promise<string> {
   let docs = await loadDocuments(exclusionRegex);
@@ -35,7 +35,12 @@ export async function render(exclusionRegex?: string): Promise<string> {
 
 export async function click(dataName: string, dataPage: string) {
   if (typeof dataName == "string" && dataName !== "") {
-
+    let confirmed = await editor.confirm("Are you sure you want to delete that document?");
+    if (confirmed) {
+      await space.deleteDocument(dataName);
+      editor.flashNotification("Document deleted.");
+      codeWidget.refreshAll();
+    }
   }
   else if (typeof dataPage == "string" && dataPage !== "") {
     let parts = dataPage.split("@");
