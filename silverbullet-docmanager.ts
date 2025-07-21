@@ -2,7 +2,7 @@
 import { space } from "@silverbulletmd/silverbullet/syscalls";
 import { datastore } from "@silverbulletmd/silverbullet/syscalls";
 
-export async function renderDocManager(exclusionRegex?: string): Promise<string> {
+export async function render(exclusionRegex?: string): Promise<string> {
   let docs = await loadDocuments(exclusionRegex);
 
   // Sort by size desc
@@ -12,7 +12,12 @@ export async function renderDocManager(exclusionRegex?: string): Promise<string>
    <table><thead><tr><td>Name</td><td style="text-align: right;">Size</td><td>Used In</td><td>&nbsp;</td></tr></thead>`;
 
   docs.forEach((d) => {
-    // How do I map a string-generated element with a function in javascript that I don't know the name of?
+    html += `<tr>
+      <td>${d.name}</td>
+      <td style="text-align: right;">${d.size}</td>
+      <td>${d.links.map(l => l.page).join(", ")}</td>
+      <td><button class="delete-button sb-button-primary" data-name="${d.name}">Delete</button></td>
+    </tr>`;
   });
 
   html += "</table></div>"
@@ -20,9 +25,14 @@ export async function renderDocManager(exclusionRegex?: string): Promise<string>
   return html;
 }
 
-export function testFunction(input: string): string {
-  console.log("Called: " + input);
-  return input + input;
+export async function click(event: any) {
+  console.log(event);
+  // TODO
+}
+
+export async function deleteDocument(name: string) {
+  console.log("Delete: " + name);
+  //await space.deleteDocument(name);
 }
 
 function getTableHead(): HTMLTableSectionElement {

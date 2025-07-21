@@ -1,6 +1,6 @@
 name: docmanager
 functions:
-  renderDocManager:
-    path: silverbullet-docmanager.ts:renderDocManager
-#    command:
-#      name: "DocManager"
+  render:
+    path: silverbullet-docmanager.ts:render
+  click:
+    path: silverbullet-docmanager.ts:click
