@@ -3,10 +3,23 @@
 
 A Silverbullet Plug that can generate a list of documents saved in your SilverBullet space allowing you to see in which notes they are used and to delete them.
 
+The document list includes:
+
+* Document name, clickable to open the document in a new tab
+* Document size
+* List of pages that include a link or reference to the document, clickable to open the page(s) at the position the document is referenced
+* If the document is not used in any page, it can be deleted after a confirmation.
+
 ## Usage
 
+To display the document manager in any page of your space, paste the following Lua Expression.
 ```
-${ widget.new { html = system.invokeFunction("docmanager.render"), display = "block" } }
+${ widget.new { html = system.invokeFunction("docmanager.render"), events = { click = function(e) system.invokeFunction("docmanager.click", e.data.target.getAttribute("data-name"), e.data.target.getAttribute("data-page")) end }, display = "block" } }
+```
+
+You can also specify a Regular Expression to **exclude** some documents from the list. For example, this allows you to exclude files ending with a `.bin` extension:
+```
+${ widget.new { html = system.invokeFunction("docmanager.render", "\\.bin$"), ... same as above ... }
 ```
 
 ## Build
@@ -28,7 +41,7 @@ SilverBullet will automatically sync and load the new version of the plug, just 
 If you would like to install this plug straight from Github, make sure you have the `.js` file committed to the repo and simply add
 
 ```
-"github:user/plugname/plugname.plug.js",
+"github:dsolera/silverbullet-plug-docmanager/docmanager.plug.js",
 ```
 
 to your list of plugs in your `CONFIG` file, run `Plugs: Update` command and off you go!
