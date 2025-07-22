@@ -17,7 +17,7 @@ This plug also displays the number of documents and their total size.
 To display the document manager in any page of your space, paste the following Lua Expression.
 
 ```lua
-${ widget.new { html = system.invokeFunction("docmanager.render"), events = { click = function(e) system.invokeFunction("docmanager.click", e.data.target.getAttribute("data-name"), e.data.target.getAttribute("data-page")) end }, display = "block" } }
+${ widget.new { html = system.invokeFunction("docmanager.render"), events = { click = function(e) system.invokeFunction("docmanager.click", e.data.target.getAttribute("data-item")) end }, display = "block" } }
 ```
 
 You can also specify a Regular Expression to **exclude** some documents from the list. For example, this allows you to exclude files ending with a `.bin` extension:

@@ -23,10 +23,10 @@ export async function render(exclusionRegex?: string): Promise<string> {
       <td style="text-align: right;">${prettifySize(d.size)}</td>`;
 
     if (d.links.length > 0) {
-      html += `<td>${d.links.map(l => `<a onclick="return false;" href="/${l.page}@${l.pos}" class="wiki-link" data-page="${l.page}@${l.pos}">${l.page}@${l.pos}</a>`).join(" &bull; ")}</td>`;
+      html += `<td>${d.links.map(l => `<a onclick="return false;" href="/${l.page}@${l.pos}" class="wiki-link" data-item="p|${l.page}@${l.pos}">${l.page}@${l.pos}</a>`).join(" &bull; ")}</td>`;
     }
     else {
-      html += `<td><i>Unused</i> &rarr; <button class="delete-button sb-button-primary" data-name="${d.name}">Delete</button></td>`
+      html += `<td><i>Unused</i> &rarr; <button class="delete-button sb-button-primary" data-item="d|${d.name}">Delete</button></td>`
     }
 
     html += '</tr>';
@@ -43,21 +43,21 @@ export async function render(exclusionRegex?: string): Promise<string> {
   return html;
 }
 
-export async function click(dataName: string, dataPage: string) {
-  if (typeof dataName == "string" && dataName !== "") {
+export async function click(dataItem: string) {
+  if (dataItem.startsWith("d|")) {
     let confirmed = await editor.confirm("Are you sure you want to delete that document?");
     if (confirmed) {
-      await space.deleteDocument(dataName);
+      await space.deleteDocument(dataItem.substring(2));
       editor.flashNotification("Document deleted.");
       codeWidget.refreshAll();
     }
   }
-  else if (typeof dataPage == "string" && dataPage !== "") {
-    let parts = dataPage.split("@");
+  else if (dataItem.startsWith("p|")) {
+    let parts = dataItem.substring(2).split("@");
     editor.navigate({ kind: "page", page: parts[0], pos: parts[1] });
   }
   else {
-    console.log("No valid click arguments.")
+    console.log("Invalid click argument: " + dataItem);
   }
 }
 
