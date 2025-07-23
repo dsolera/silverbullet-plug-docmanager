@@ -83,26 +83,23 @@ async function loadDocuments(exclusionRegex?: string) {
   let links = await datastore.queryLua(["idx", "link"], {});
   let docs = await space.listDocuments();
 
+  let hasRegex: boolean = false;
   let rExp: any = null;
-  if (typeof exclusionRegex === "string") {
-    rExp = new RegExp(exclusionRegex + "", "g");
+  if (typeof exclusionRegex === "string" && exclusionRegex.length > 0) {
+    rExp = new RegExp(exclusionRegex);
+    hasRegex = true;
   }
 
   let output: Document[] = [];
 
-  await Array.prototype.forEach.call(docs, async function (d): Promise<void> {
-    // This regex check seems unreliable, don't know why
-    if (rExp == null || (rExp != null && !rExp.test(d.name))) {
-      //console.log("Valid: " + d.name + " with " + rExp);
+  for (const d of docs) {
+    if (!hasRegex || (hasRegex && !rExp.test(d.name))) {
 
       let newLinks = findDocLinks(links, d.name);
       let newDoc = new Document(d.name, d.size, newLinks);
       output.push(newDoc);
     }
-    //else {
-    //  console.log("NOT Valid: " + d.name + " with " + rExp);
-    //}
-  });
+  }
 
   return output;
 }
