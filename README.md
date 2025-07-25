@@ -39,6 +39,16 @@ config.set {
 }
 ```
 
+### Custom Space Style
+
+Due to the tabular nature of the document list, it is suggested to widen the editor area with some Space Style, which will only have effect on Desktop browsers.
+
+```css
+html {
+  --editor-width: 1200px;
+}
+```
+
 ## Build
 
 To build this plug, make sure you have [Deno installed](https://docs.deno.com/runtime/). Then, build the plug with:
