@@ -12,6 +12,8 @@ The document list includes:
 
 This plug also displays the number of documents and their total size.
 
+<img width="1785" height="1591" alt="screenshot" src="https://github.com/user-attachments/assets/502b965a-ba87-4c31-a44f-fce2b8c333a8" />
+
 ## Usage
 
 To display the document manager in any page of your space, paste the following Lua Expression.
