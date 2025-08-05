@@ -19,7 +19,7 @@ export async function render(exclusionRegex?: string): Promise<string> {
 
   docs.forEach((d) => {
     html += `<tr>
-      <td><a href="/${d.name}" class="wiki-link" target="_blank">${d.name}</a></td>
+      <td><a href="/${d.name}" class="wiki-link">${d.name}</a></td>
       <td style="text-align: right;">${prettifySize(d.size)}</td>`;
 
     if (d.links.length > 0) {

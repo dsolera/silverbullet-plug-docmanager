@@ -5,7 +5,7 @@ A Plug that can generate a list of documents saved in your SilverBullet space.
 
 The document list includes:
 
-* Document name, clickable to open the document in a new tab
+* Document name, clickable to open the document
 * Document size
 * List of pages that include a link or reference to the document, clickable to open the page(s) at the position the document is referenced
 * If the document is not used in any page, a Delete button to delete the document (after confirmation).
