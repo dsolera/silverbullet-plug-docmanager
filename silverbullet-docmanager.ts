@@ -19,7 +19,7 @@ export async function render(exclusionRegex?: string): Promise<string> {
 
   docs.forEach((d) => {
     html += `<tr>
-      <td><a href="/${d.name}" class="wiki-link">${d.name}</a></td>
+      <td><a href="/${d.name}" class="wiki-link" data-item="n|${d.name}" onclick="return false;">${d.name}</a></td>
       <td style="text-align: right;">${prettifySize(d.size)}</td>`;
 
     if (d.links.length > 0) {
@@ -55,6 +55,10 @@ export async function click(dataItem: string) {
   else if (dataItem.startsWith("p|")) {
     let parts = dataItem.substring(2).split("@");
     editor.navigate({ kind: "page", page: parts[0], pos: parts[1] });
+  }
+  else if (dataItem.startsWith("n|")) {
+    let file = dataItem.substring(2);
+    editor.navigate({ kind: "document", page: file });
   }
   else {
     console.log("Invalid click argument: " + dataItem);
