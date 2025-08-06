@@ -10,7 +10,7 @@ The document list includes:
 * List of pages that include a link or reference to the document, clickable to open the page(s) at the position the document is referenced
 * If the document is not used in any page, a Delete button to delete the document (after confirmation).
 
-This plug also displays the number of documents and their total size.
+This plug also displays the **total number** of documents and their **total size**. The list can also be sorted by name or size.
 
 <img width="1785" height="1591" alt="screenshot" src="https://github.com/user-attachments/assets/502b965a-ba87-4c31-a44f-fce2b8c333a8" />
 
