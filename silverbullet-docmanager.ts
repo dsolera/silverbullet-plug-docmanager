@@ -4,11 +4,26 @@ import { datastore } from "@silverbulletmd/silverbullet/syscalls";
 import { editor } from "@silverbulletmd/silverbullet/syscalls";
 import { codeWidget } from "@silverbulletmd/silverbullet/syscalls";
 
-export async function render(exclusionRegex?: string): Promise<string> {
+export async function render(exclusionRegex?: string, sortBy?: string): Promise<string> {
   let docs = await loadDocuments(exclusionRegex);
+  if (!hasContent(sortBy)) {
+    sortBy = "name";
+  }
 
-  //docs.sort((a, b) => b.size - a.size);
-  docs.sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));
+  if (sortBy === "size" || sortBy === "size-asc") {
+    docs.sort((a, b) => a.size - b.size);
+  }
+  else if (sortBy === "size-desc") {
+    docs.sort((a, b) => b.size - a.size);
+  }
+  else if (sortBy === "name-desc") {
+    docs.sort((a, b) => b.name.localeCompare(a.name, undefined, { sensitivity: 'base' }));
+  }
+  else {
+    // Default sort by name
+    docs.sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));
+  }
+
 
   let html = `<div class="docmanager">
    <table><thead><tr><td>Name</td><td style="text-align: right;">Size</td><td>Used In</td></tr></thead>`;
@@ -82,15 +97,14 @@ function roundToDecimals(num: number, decimals: number): number {
   return Math.round(num * factor) / factor;
 }
 
-
 async function loadDocuments(exclusionRegex?: string) {
   let links = await datastore.queryLua(["idx", "link"], {});
   let docs = await space.listDocuments();
 
   let hasRegex: boolean = false;
   let rExp: any = null;
-  if (typeof exclusionRegex === "string" && exclusionRegex.length > 0) {
-    rExp = new RegExp(exclusionRegex);
+  if (hasContent(exclusionRegex)) {
+    rExp = new RegExp(exclusionRegex + "");
     hasRegex = true;
   }
 
@@ -119,6 +133,10 @@ function findDocLinks(links: any, attn: string) {
   });
 
   return output;
+}
+
+function hasContent(content?: string): boolean {
+  return typeof content === "string" && content.length > 0;
 }
 
 class DocumentLink {

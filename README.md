@@ -22,11 +22,24 @@ To display the document manager in any page of your space, paste the following L
 ${ widget.new { html = system.invokeFunction("docmanager.render"), events = { click = function(e) system.invokeFunction("docmanager.click", e.data.target.getAttribute("data-item")) end }, display = "block" } }
 ```
 
-You can also specify a Regular Expression to **exclude** some documents from the list. For example, this allows you to exclude files ending with a `.bin` extension:
+You can also specify a Regular Expression to **exclude** some documents from the list. For example, this allows you to exclude documents ending with a `.bin` extension:
 
 ```lua
 ${ widget.new { html = system.invokeFunction("docmanager.render", "\\.bin$"), ... same as above ... }
 ```
+
+Additionally, you can specify the sorting of the document list:
+
+```lua
+${ widget.new { html = system.invokeFunction("docmanager.render", nil, "size-desc"), ... same as above ... }
+```
+
+The possibile sortings are:
+
+* `name` or `name-asc`: sort by name, ascending
+* `name-desc`: sort by document name, descending
+* `size` or `size-asc`: sort by size, ascending
+* `size-desc`: sort by size, descending.
 
 ## Installation
 
