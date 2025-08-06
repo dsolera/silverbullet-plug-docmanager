@@ -92,9 +92,17 @@ function prettifySize(size: number) {
   }
 }
 
-function roundToDecimals(num: number, decimals: number): number {
+function roundToDecimals(num: number, decimals: number): string {
   const factor = Math.pow(10, decimals);
-  return Math.round(num * factor) / factor;
+  let result = Math.round(num * factor) / factor;
+
+  let resultString = result.toString();
+
+  if (resultString[resultString.length - 2] != ".") {
+    resultString += ".0";
+  }
+
+  return resultString;
 }
 
 async function loadDocuments(exclusionRegex?: string) {
