@@ -2,5 +2,7 @@ name: docmanager
 functions:
   render:
     path: silverbullet-docmanager.ts:render
+    syscall: docmanager.render
   click:
     path: silverbullet-docmanager.ts:click
+    syscall: docmanager.click
