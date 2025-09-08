@@ -85,7 +85,7 @@ function prettifySize(size: number) {
     return size + " B";
   }
   else if (size < 1048576) {
-    return roundToDecimals(size / 1024, 1) + " KB";
+    return roundToDecimals(size / 1024, 1) + " kB";
   }
   else {
     return roundToDecimals(size / 1048576, 1) + " MB";
