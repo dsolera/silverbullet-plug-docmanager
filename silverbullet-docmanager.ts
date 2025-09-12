@@ -68,8 +68,7 @@ export async function click(dataItem: string) {
     }
   }
   else if (dataItem.startsWith("p|")) {
-    let parts = dataItem.substring(2).split("@");
-    editor.navigate({ kind: "page", page: parts[0], pos: parts[1] });
+    editor.navigate(dataItem.substring(2));
   }
   else if (dataItem.startsWith("n|")) {
     let file = dataItem.substring(2);
