@@ -66,16 +66,13 @@ html {
 
 ## Build
 
-To build this plug, make sure you have [Deno installed](https://docs.deno.com/runtime/). Then, build the plug with:
+To build this plug, make sure you have [Node.js](https://nodejs.org/) and `npm` installed. Then, build the plug with:
 
 ```shell
-deno task build
+npm install
+npm run build
 ```
 
-Then, copy the resulting `.plug.js` file into your space's `_plug` folder. Or build and copy in one command:
-
-```shell
-deno task build && cp *.plug.js /my/space/_plug/
-```
+Then, copy the resulting `.plug.js` file into your space's `_plug` folder.
 
 SilverBullet will automatically sync and load the new version of the plug, just watch your browser's JavaScript console to see when this happens.
