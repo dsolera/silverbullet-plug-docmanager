@@ -43,16 +43,9 @@ The possibile sortings are:
 
 ## Installation
 
-If you would like to install this plug straight from Github, make sure you have the `.js` file committed to the repo and simply add this URL to the list of plugs in your `CONFIG` file, run `Plugs: Update` command and off you go!
+Copy the `.plug.js` file into your space (path does not matter) or use SilverBullet's integrated Library Manager (`Library: Install` command) to install it by passing the `PLUG.md` URL: `https://github.com/dsolera/silverbullet-plug-docmanager/blob/main/PLUG.md`.
 
-```lua
-config.set {
-  plugs = {
-    ... other plugs ...,
-    "github:dsolera/silverbullet-plug-docmanager/docmanager.plug.js"
-  }
-}
-```
+SilverBullet will automatically sync and load the new version of the plug, just watch your browser's JavaScript console to see when this happens, the call the `Plugs: Reload` command.
 
 ### Custom Space Style
 
@@ -73,6 +66,4 @@ npm install
 npm run build
 ```
 
-Then, copy the resulting `.plug.js` file into your space (path does not matter) or use SilverBullet's integrated Library Manager (`Library: Install` command) to install it by passing the `PLUG.md` URL: `https://github.com/dsolera/silverbullet-plug-docmanager/blob/main/PLUG.md`.
-
-SilverBullet will automatically sync and load the new version of the plug, just watch your browser's JavaScript console to see when this happens, the call the `Plugs: Reload` command.
+Install using the installation instructions above.
