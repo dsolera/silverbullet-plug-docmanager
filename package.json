@@ -6,6 +6,6 @@
         "build": "npx plug-compile silverbullet-docmanager.plug.yaml"
     },
     "dependencies": {
-        "@silverbulletmd/silverbullet": ">=2.5.3"
+        "@silverbulletmd/silverbullet": ">=2.7.0"
     }
 }
