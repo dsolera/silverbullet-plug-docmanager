@@ -73,6 +73,6 @@ npm install
 npm run build
 ```
 
-Then, copy the resulting `.plug.js` file into your space (path does not matter) or use SilverBullet's integrated Library Manager (`Library: Install` command) to install it by passing the `PLUG.md` URL.
+Then, copy the resulting `.plug.js` file into your space (path does not matter) or use SilverBullet's integrated Library Manager (`Library: Install` command) to install it by passing the `PLUG.md` URL: `https://github.com/dsolera/silverbullet-plug-docmanager/blob/main/PLUG.md`.
 
 SilverBullet will automatically sync and load the new version of the plug, just watch your browser's JavaScript console to see when this happens, the call the `Plugs: Reload` command.
